@@ -24,6 +24,10 @@ public class Window {
 		return Display.isCloseRequested();
 	}
 	
+	public static void dispose() {
+		Display.destroy();
+	}
+	
 	public static int getWidth() {
 		return Display.getDisplayMode().getWidth();
 	}
