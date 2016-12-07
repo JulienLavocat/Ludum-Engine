@@ -9,7 +9,7 @@ public class MainComponent {
 
 	private boolean isRunning;
 	private Game game;
-	
+
 	public MainComponent() {
 		game = new Game();
 		isRunning = false;
@@ -57,15 +57,18 @@ public class MainComponent {
 
 			while(unprocessedTime > frameTime) {
 				render = true;
-				
+
 				unprocessedTime -= frameTime;
 
 				if(Window.isCloseRequested())
 					stop();
 
+				Time.setDelta(frameTime);
+				Input.update();
+
 				game.input();
 				game.update();
-				
+
 				if(frameCounter >= Time.SECOND) {
 					System.out.println(frames);
 					frames = 0;
