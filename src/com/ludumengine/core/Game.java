@@ -13,7 +13,7 @@ public class Game {
 		if(Input.getKeyUp(Keyboard.KEY_UP))
 			System.out.println("You just released UP");
 		if(Input.getMouseDown(1))
-			System.out.println("You just right clicked at "+Input.getMousePosition());
+			System.out.println("You just right clicked at "+Input.getMousePosition().normalize());
 		if(Input.getMouseUp(1))
 			System.out.println("You just released right click");
 	}
