@@ -5,12 +5,13 @@ public class MainComponent {
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 800;
 	public static final String TITLE = "Ludum Engine";
-	public static final double FRAME_CAP = 5000.0;
+	public static final double FRAME_CAP = 60.0;
 
 	private boolean isRunning;
 	private Game game;
 
 	public MainComponent() {
+		RenderUtils.initGraphics();
 		game = new Game();
 		isRunning = false;
 	}
@@ -64,9 +65,10 @@ public class MainComponent {
 					stop();
 
 				Time.setDelta(frameTime);
-				Input.update();
 
 				game.input();
+				Input.update();
+				
 				game.update();
 
 				if(frameCounter >= Time.SECOND) {
@@ -91,6 +93,8 @@ public class MainComponent {
 	}
 
 	private void render() {
+		RenderUtils.clearScreen();
+		
 		Window.render();
 		game.render();
 	}
