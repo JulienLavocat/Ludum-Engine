@@ -16,7 +16,7 @@ public class Vector3f {
 		return "("+x+";"+y+";"+z+")";
 	}
 
-	public float lenght() {
+	public float length() {
 		return (float) Math.sqrt(x*x + y*y + z*z);
 	}
 
@@ -32,10 +32,10 @@ public class Vector3f {
 	}
 
 	public Vector3f normalize() {
-		float lenght = lenght();
-		this.x /= lenght;
-		this.y /= lenght;
-		this.z /= lenght;
+		float length = length();
+		this.x /= length;
+		this.y /= length;
+		this.z /= length;
 		return this;
 	}
 

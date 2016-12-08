@@ -33,7 +33,7 @@ public class Matrix4f {
 		return res;
 	}
 
-	public float[][] getM() {
+	public float[][] getMatrix() {
 		return m;
 	}
 	
@@ -45,7 +45,7 @@ public class Matrix4f {
 		m[x][y] = value;
 	}
 
-	public void setM(float[][] m) {
+	public void setMatrix(float[][] m) {
 		this.m = m;
 	}
 

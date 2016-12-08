@@ -14,7 +14,7 @@ public class Vector2f {
 		return "("+x+";"+y+")";
 	}
 	
-	public float lenght() {
+	public float length() {
 		return (float) Math.sqrt(x*x + y*y);
 	}
 	
@@ -23,9 +23,9 @@ public class Vector2f {
 	}
 	
 	public Vector2f normalize() {
-		float lenght = lenght();
-		this.x /= lenght;
-		this.y /= lenght;
+		float length = length();
+		this.x /= length;
+		this.y /= length;
 		return this;
 	}
 	
