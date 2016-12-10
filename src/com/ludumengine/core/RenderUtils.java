@@ -11,7 +11,7 @@ public class RenderUtils {
 	}
 	
 	public static void initGraphics() {
-		glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		
 		glFrontFace(GL_CW);
 		glCullFace(GL_BACK);
@@ -21,6 +21,10 @@ public class RenderUtils {
 		//TOOD: Depth clamp
 		
 		glEnable(GL_FRAMEBUFFER_SRGB);
+	}
+	
+	public static String getGlVersion() {
+		return glGetString(GL_VERSION);
 	}
 
 }

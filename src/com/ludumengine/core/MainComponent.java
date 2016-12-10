@@ -3,14 +3,15 @@ package com.ludumengine.core;
 public class MainComponent {
 
 	public static final int WIDTH = 800;
-	public static final int HEIGHT = 800;
+	public static final int HEIGHT = 600;
 	public static final String TITLE = "Ludum Engine";
-	public static final double FRAME_CAP = 60.0;
+	public static final double FRAME_CAP = 5000.0;
 
 	private boolean isRunning;
 	private Game game;
 
 	public MainComponent() {
+		System.out.println(RenderUtils.getGlVersion());
 		RenderUtils.initGraphics();
 		game = new Game();
 		isRunning = false;
@@ -95,8 +96,8 @@ public class MainComponent {
 	private void render() {
 		RenderUtils.clearScreen();
 		
-		Window.render();
 		game.render();
+		Window.render();
 	}
 
 	private void cleanUp() {
