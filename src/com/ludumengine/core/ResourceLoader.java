@@ -51,9 +51,15 @@ public class ResourceLoader {
 				else if(s[0].equals("v"))
 					vertices.add(new Vertex(new Vector3f(Float.valueOf(s[1]), Float.valueOf(s[2]), Float.valueOf(s[3]))));
 				else if(s[0].equals("f")) {
-					indices.add(Integer.parseInt(s[1]) - 1);
-					indices.add(Integer.parseInt(s[2]) - 1);
-					indices.add(Integer.parseInt(s[3]) - 1);
+					indices.add(Integer.parseInt(s[1].split("/")[0]) - 1);
+					indices.add(Integer.parseInt(s[2].split("/")[0]) - 1);
+					indices.add(Integer.parseInt(s[3].split("/")[0]) - 1);
+					
+					if(s.length > 4) {
+						indices.add(Integer.parseInt(s[1].split("/")[0]) - 1);
+						indices.add(Integer.parseInt(s[3].split("/")[0]) - 1);
+						indices.add(Integer.parseInt(s[4].split("/")[0]) - 1);
+					}
 				}
 			}
 			br.close();

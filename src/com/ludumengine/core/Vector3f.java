@@ -39,12 +39,15 @@ public class Vector3f {
 		return this;
 	}
 
-	/*public Vector3f rotate(float angle) {
-		double rad = Math.toRadians(angle);
-		double cos = Math.cos(rad);
-		double sin = Math.sin(rad);
-		return new Vector3f((float)(x * cos - y * sin), (float)(x * sin + y * cos));
-	}*/
+	public Vector3f rotate(Vector3f axis, float angle)
+	{
+		float sinAngle = (float)Math.sin(-angle);
+		float cosAngle = (float)Math.cos(-angle);
+
+		return this.cross(axis.mul(sinAngle)).add(           //Rotation on local X
+				(this.mul(cosAngle)).add(                     //Rotation on local Z
+						axis.mul(this.dot(axis.mul(1 - cosAngle))))); //Rotation on local Y
+	}
 
 	public Vector3f add(Vector3f r) {
 		return new Vector3f(x + r.getX(), y + r.getY(), z + r.getZ());
