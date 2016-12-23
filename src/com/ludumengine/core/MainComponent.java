@@ -5,7 +5,7 @@ public class MainComponent {
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
 	public static final String TITLE = "Ludum Engine";
-	public static final double FRAME_CAP = 5000.0;
+	public static final double FRAME_CAP = 120.0;
 
 	private boolean isRunning;
 	private Game game;

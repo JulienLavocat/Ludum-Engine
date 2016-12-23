@@ -31,11 +31,11 @@ public class Quaternion {
 	}
 	
 	public Quaternion conjugate() {
-		return new Quaternion(-x, -y, -z, -w);
+		return new Quaternion(-x, -y, -z, w);
 	}
 	
-	public Quaternion mul(Quaternion r) {
-		
+	public Quaternion mul(Quaternion r)
+	{
 		float w_ = w * r.getW() - x * r.getX() - y * r.getY() - z * r.getZ();
 		float x_ = x * r.getW() + w * r.getX() + y * r.getZ() - z * r.getY();
 		float y_ = y * r.getW() + w * r.getY() + z * r.getX() - x * r.getZ();
@@ -44,11 +44,12 @@ public class Quaternion {
 		return new Quaternion(x_, y_, z_, w_);
 	}
 	
-	public Quaternion mul(Vector3f r) {
+	public Quaternion mul(Vector3f r)
+	{
 		float w_ = -x * r.getX() - y * r.getY() - z * r.getZ();
-		float x_ = w * r.getX() + y * r.getZ() - z * r.getY();
-		float y_ = w * r.getY() + z * r.getX() - x * r.getZ();
-		float z_ = w * r.getZ() + x * r.getY() - y * r.getX();
+		float x_ =  w * r.getX() + y * r.getZ() - z * r.getY();
+		float y_ =  w * r.getY() + z * r.getX() - x * r.getZ();
+		float z_ =  w * r.getZ() + x * r.getY() - y * r.getX();
 		
 		return new Quaternion(x_, y_, z_, w_);
 	}

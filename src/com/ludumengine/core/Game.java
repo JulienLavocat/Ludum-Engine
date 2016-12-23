@@ -5,13 +5,17 @@ public class Game {
 	private Mesh mesh;
 	private Shader shader;
 	private Transform transform;
+	private Camera camera;
 
 	public Game() {
-
+		
 		mesh = ResourceLoader.loadMesh("untitled.obj");
 		shader = new Shader();
 		transform = new Transform();
+		camera = new Camera();
+		
 		transform.setProjection(0.1f, 1000f, Window.getWidth(), Window.getHeight(), 70f);
+		Transform.setCamera(camera);
 
 		/*Vertex[] data = new Vertex[] {
 				new Vertex(new Vector3f(-1, -1, 0)),
@@ -35,6 +39,9 @@ public class Game {
 	}
 
 	public void input() {
+		
+		camera.input();
+		
 	}
 
 	float temp = 0.0f;
@@ -42,8 +49,8 @@ public class Game {
 	public void update() {
 		temp += Time.getDelta();
 		float sin = (float) Math.sin(temp);
-		transform.setTranslation(sin, 0, 5);
-		transform.setRotation(0, sin * 180, 0);
+		transform.setTranslation(0, 0, 5);
+		//transform.setRotation(0, sin * 180, 0);
 		//transform.setScale(0.7f * sin, 0.7f * sin, 0.7f * sin);
 	}
 

@@ -1,5 +1,7 @@
 package com.ludumengine.core;
 
+import org.lwjgl.input.Keyboard;
+
 public class Camera {
 	
 	public static final Vector3f yAxis = new Vector3f(0,1,0);
@@ -25,6 +27,29 @@ public class Camera {
 		pos = pos.add(dir.mul(amt));
 	}
 	
+	public void input() {
+		float movAmt = (float)(10*Time.getDelta());
+		float rotAmt = (float)(100*Time.getDelta());
+		
+		if(Input.getKey(Keyboard.KEY_W))
+			move(getForward(), movAmt);
+		if(Input.getKey(Keyboard.KEY_S))
+			move(getForward(), -movAmt);
+		if(Input.getKey(Keyboard.KEY_Q))
+			move(getLeft(), movAmt);
+		if(Input.getKey(Keyboard.KEY_D))
+			move(getRight(), movAmt);
+		
+		if(Input.getKey(Keyboard.KEY_UP))
+			rotateX(-rotAmt);
+		if(Input.getKey(Keyboard.KEY_DOWN))
+			rotateX(rotAmt);
+		if(Input.getKey(Keyboard.KEY_RIGHT))
+			rotateY(-rotAmt);
+		if(Input.getKey(Keyboard.KEY_LEFT))
+			rotateY(rotAmt);
+	}
+	
 	public void rotateY(float angle) {
 		Vector3f hAxis = yAxis.cross(forward);
 		hAxis.normalize();
@@ -48,13 +73,13 @@ public class Camera {
 	}
 	
 	public Vector3f getLeft() {
-		Vector3f left = up.cross(forward);
+		Vector3f left = forward.cross(up);
 		left.normalize();
 		return left;
 	}
 	
 	public Vector3f getRight() {
-		Vector3f right = forward.cross(up);
+		Vector3f right = up.cross(forward);
 		right.normalize();
 		return right;
 	}
