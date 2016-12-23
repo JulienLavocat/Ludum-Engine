@@ -9,5 +9,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="D:/Misc/Dev/eclipse/Ludum Engine/res/libs/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="res/libs/slick-util.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

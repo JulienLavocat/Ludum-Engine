@@ -1,10 +1,25 @@
 package com.ludumengine.core;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+import org.newdawn.slick.opengl.TextureLoader;
+
 public class ResourceLoader {
+	
+	public static Texture loadTexture(String fileName) {
+		String[] splitArray = fileName.split("\\.");
+		String ext = splitArray[splitArray.length -1];
+		try {
+			return new Texture(TextureLoader.getTexture(ext, new FileInputStream("./res/textures/"+fileName)).getTextureID());
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+		return  null;
+	}
 
 	public static String loadShader(String fileName) {
 

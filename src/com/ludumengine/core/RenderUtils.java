@@ -4,6 +4,15 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.*;
 
 public class RenderUtils {
+	
+	public static void setTextures(boolean enabled) {
+		if(enabled) 
+			glEnable(GL_TEXTURE_2D);
+		else
+			glDisable(GL_TEXTURE_2D);
+		
+		
+	}
 
 	public static void clearScreen() {
 		//TODO: Stencil Buffer
@@ -20,6 +29,7 @@ public class RenderUtils {
 		
 		//TOOD: Depth clamp
 		
+		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_FRAMEBUFFER_SRGB);
 	}
 	

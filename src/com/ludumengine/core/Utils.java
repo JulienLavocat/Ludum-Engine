@@ -22,6 +22,8 @@ public class Utils {
 			buffer.put(vertex[i].getPos().getX());
 			buffer.put(vertex[i].getPos().getY());
 			buffer.put(vertex[i].getPos().getZ());
+			buffer.put(vertex[i].getTextCoord().getX());
+			buffer.put(vertex[i].getTextCoord().getY());
 		}
 		buffer.flip();
 		return buffer;
