@@ -6,6 +6,10 @@ public class Vector3f {
 	private float y;
 	private float z;
 
+	public Vector3f() {
+		this(0,0,0);
+	}
+	
 	public Vector3f(float x, float y, float z) {
 		this.x = x;
 		this.y = y;
@@ -32,12 +36,9 @@ public class Vector3f {
 		return new Vector3f(x_, y_, z_);
 	}
 
-	public Vector3f normalize() {
+	public Vector3f normalized() {
 		float length = length();
-		this.x /= length;
-		this.y /= length;
-		this.z /= length;
-		return this;
+		return new Vector3f(x / length, y / length, z / length);
 	}
 
 	public Vector3f rotate(Vector3f axis, float angle)
@@ -55,11 +56,7 @@ public class Vector3f {
 		
 		Quaternion w = rotation.mul(this).mul(conjugate);
 		
-		x = w.getX();
-		y = w.getY();
-		z = w.getZ();
-		
-		return this;
+		return new Vector3f(w.getX(), w.getY(), w.getZ());
 	}
 
 	public Vector3f add(Vector3f r) {
@@ -92,6 +89,10 @@ public class Vector3f {
 
 	public Vector3f div(float r) {
 		return new Vector3f(x / r, x / r, z / r);
+	}
+	
+	public Vector3f abs() {
+		return new Vector3f(Math.abs(x), Math.abs(y), Math.abs(z));
 	}
 
 	public float getX() {

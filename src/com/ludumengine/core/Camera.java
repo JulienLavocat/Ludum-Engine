@@ -1,7 +1,5 @@
 package com.ludumengine.core;
 
-import org.lwjgl.input.Keyboard;
-
 public class Camera {
 	
 	public static final Vector3f yAxis = new Vector3f(0,1,0);
@@ -19,69 +17,85 @@ public class Camera {
 		this.forward = forward;
 		this.up = up;
 		
-		up.normalize();
-		forward.normalize();
+		up = up.normalized();
+		forward = forward.normalized();
 	}
 	
 	public void move(Vector3f dir, float amt) {
 		pos = pos.add(dir.mul(amt));
 	}
 	
+	boolean mouseLocked = false;
+	Vector2f centerPosition = new Vector2f(Window.getWidth()/2, Window.getHeight()/2);
+	
 	public void input() {
+		float sensitivity = 0.25f;
 		float movAmt = (float)(10*Time.getDelta());
 		float rotAmt = (float)(100*Time.getDelta());
 		
-		if(Input.getKey(Keyboard.KEY_W))
+		if(Input.getKeyDown(Input.KEY_ESCAPE)) {
+			Input.setCursor(true);
+			mouseLocked = false;
+		}
+		if(Input.getMouseDown(0)) {
+			Input.setMousePosition(centerPosition);
+			Input.setCursor(false);
+			mouseLocked = true;
+		}
+		
+		if(Input.getKey(Input.KEY_W))
 			move(getForward(), movAmt);
-		if(Input.getKey(Keyboard.KEY_S))
+		if(Input.getKey(Input.KEY_S))
 			move(getForward(), -movAmt);
-		if(Input.getKey(Keyboard.KEY_Q))
+		if(Input.getKey(Input.KEY_Q))
 			move(getLeft(), movAmt);
-		if(Input.getKey(Keyboard.KEY_D))
+		if(Input.getKey(Input.KEY_D))
 			move(getRight(), movAmt);
 		
-		if(Input.getKey(Keyboard.KEY_UP))
+		if(mouseLocked) {
+			Vector2f deltaPos = Input.getMousePosition().sub(centerPosition);
+			boolean rotX = deltaPos.getY() != 0;
+			boolean rotY = deltaPos.getX() != 0;
+			if(rotY)
+				rotateY(deltaPos.getX() * sensitivity);
+			if(rotX)
+				rotateX(-deltaPos.getY() * sensitivity);
+			if(rotY || rotX) {
+				Input.setMousePosition(new Vector2f(Window.getWidth() / 2, Window.getHeight() / 2));
+			}
+		}
+		
+		if(Input.getKey(Input.KEY_UP))
 			rotateX(-rotAmt);
-		if(Input.getKey(Keyboard.KEY_DOWN))
+		if(Input.getKey(Input.KEY_DOWN))
 			rotateX(rotAmt);
-		if(Input.getKey(Keyboard.KEY_RIGHT))
+		if(Input.getKey(Input.KEY_RIGHT))
 			rotateY(-rotAmt);
-		if(Input.getKey(Keyboard.KEY_LEFT))
+		if(Input.getKey(Input.KEY_LEFT))
 			rotateY(rotAmt);
 	}
 	
 	public void rotateY(float angle) {
-		Vector3f hAxis = yAxis.cross(forward);
-		hAxis.normalize();
-		
-		forward.rotate(yAxis, angle);
-		forward.normalize();
-		
-		up = forward.cross(hAxis);
-		up.normalize();
+		Vector3f hAxis = yAxis.cross(forward).normalized();
+		forward = forward.rotate(yAxis, angle).normalized();
+		up = forward.cross(hAxis).normalized();
 	}
 	
 	public void rotateX(float angle) {
-		Vector3f hAxis = yAxis.cross(forward);
-		hAxis.normalize();
-		
-		forward.rotate(hAxis, angle);
-		forward.normalize();
-		
-		up = forward.cross(hAxis);
-		up.normalize();
+		Vector3f hAxis = yAxis.cross(forward).normalized();
+		forward = forward.rotate(hAxis, angle).normalized();
+		up = forward.cross(hAxis).normalized();
+
 	}
 	
 	public Vector3f getLeft() {
 		Vector3f left = forward.cross(up);
-		left.normalize();
-		return left;
+		return left.normalized();
 	}
 	
 	public Vector3f getRight() {
 		Vector3f right = up.cross(forward);
-		right.normalize();
-		return right;
+		return right.normalized();
 	}
 	
 	public Vector3f getPos() {

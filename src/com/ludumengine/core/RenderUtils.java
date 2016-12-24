@@ -13,6 +13,10 @@ public class RenderUtils {
 		
 		
 	}
+	
+	public static void setClearColor(Vector3f color) {
+		glClearColor(color.getX(), color.getY(), color.getZ(), 1.0f);
+	}
 
 	public static void clearScreen() {
 		//TODO: Stencil Buffer
@@ -35,6 +39,10 @@ public class RenderUtils {
 	
 	public static String getGlVersion() {
 		return glGetString(GL_VERSION);
+	}
+
+	public static void unBindTextures() {
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 }

@@ -1,10 +1,16 @@
 #version 330
 
-in vec4 color;
+in vec2 textCoord0;
 
-out vec4 fragColor;
+uniform vec3 color;
+uniform sampler2D sampler;
 
 void main()
 {
-	fragColor = color;
+	vec4 textureColor = texture2D(sampler, textCoord0.xy) * vec4(color, 1);
+	if(textureColor == 0)
+		gl_FragColor = vec4(color, 1);
+	else
+		gl_FragColor = textureColor * vec4(color, 1);
+	
 }

@@ -4,15 +4,15 @@ public class Game {
 
 	private Mesh mesh;
 	private Shader shader;
+	private Material material;
 	private Transform transform;
 	private Camera camera;
-	private Texture texture;
 
 	public Game() {
 		
 		mesh = new Mesh();
-		texture = ResourceLoader.loadTexture("texture.png");
-		shader = new Shader();
+		material = new Material(ResourceLoader.loadTexture("texture.png"), new Vector3f(0, 1, 1));
+		shader = new BasicShader();
 		transform = new Transform();
 		camera = new Camera();
 		
@@ -23,21 +23,15 @@ public class Game {
 				new Vertex(new Vector3f(-1, -1, 0), new Vector2f(0,0)),
 				new Vertex(new Vector3f(0, 1, 0), new Vector2f(0.5f,0)),
 				new Vertex(new Vector3f(1, -1, 0), new Vector2f(1.0f,0)),
-				new Vertex(new Vector3f(0, -1, 1), new Vector2f(0,0.5f))
+				new Vertex(new Vector3f(0, -1, 1), new Vector2f(0.5f,1.0f))
 		};
 		
-		int[] indices = new int[] {0,1,3,
-								   3,1,2,
-								   2,1,0,
+		int[] indices = new int[] {3,1,0,
+								   2,1,3,
+								   0,1,2,
 								   0,2,3};
 
 		mesh.addVertices(data, indices);
-
-		shader.addVertexShader(ResourceLoader.loadShader("basicVertex.glsl"));
-		shader.addFragmentShader(ResourceLoader.loadShader("basicFragment.glsl"));
-		shader.compileShader();
-
-		shader.addUniform("transform");
 	}
 
 	public void input() {
@@ -57,9 +51,9 @@ public class Game {
 	}
 
 	public void render() {
+		RenderUtils.setClearColor(Transform.getCamera().getPos().div(2048f).abs());
 		shader.bind();
-		shader.setUniform("transform", transform.getProjectedTransformation());
-		texture.bind();
+		shader.updateUniforms(transform.getTransformation(), transform.getProjectedTransformation(), material);
 		mesh.draw();
 	}
 
