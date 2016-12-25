@@ -7,12 +7,15 @@ public class Game {
 	private Material material;
 	private Transform transform;
 	private Camera camera;
+	//private Mesh monkey;
 
 	public Game() {
 		
 		mesh = new Mesh();
-		material = new Material(ResourceLoader.loadTexture("texture.png"), new Vector3f(0, 1, 1));
-		shader = new BasicShader();
+		mesh = ResourceLoader.loadMesh("untitled.obj");
+		mesh = ResourceLoader.loadMesh("untitled.obj");
+		material = new Material(ResourceLoader.loadTexture("texture.png"), new Vector3f(1, 1, 1));
+		shader = PhongShader.getInstance();
 		transform = new Transform();
 		camera = new Camera();
 		
@@ -31,7 +34,9 @@ public class Game {
 								   0,1,2,
 								   0,2,3};
 
-		mesh.addVertices(data, indices);
+		mesh.addVertices(data, indices, true);
+		PhongShader.setAmbientLight(new Vector3f(0.1f,0.1f,0.1f));
+		PhongShader.setDirectionalLight(new DirectionalLight(new BaseLight(new Vector3f(1,1,1), 0.8f), new Vector3f(1,1,1)));
 	}
 
 	public void input() {
@@ -46,15 +51,17 @@ public class Game {
 		temp += Time.getDelta();
 		float sin = (float) Math.sin(temp);
 		transform.setTranslation(0, 0, 5);
-		transform.setRotation(0, sin * 180, 0);
-		//transform.setScale(0.7f * sin, 0.7f * sin, 0.7f * sin);
+		transform.setRotation(0, -sin * 180, 0);
+		transform.setScale(1.5f, 1.5f, 1.5f);
 	}
 
 	public void render() {
-		RenderUtils.setClearColor(Transform.getCamera().getPos().div(2048f).abs());
+		//RenderUtils.setClearColor(Transform.getCamera().getPos().div(2048f).abs());
+		RenderUtils.setClearColor(new Vector3f(0,0,0));
 		shader.bind();
 		shader.updateUniforms(transform.getTransformation(), transform.getProjectedTransformation(), material);
 		mesh.draw();
+		//monkey.draw();
 	}
 
 }

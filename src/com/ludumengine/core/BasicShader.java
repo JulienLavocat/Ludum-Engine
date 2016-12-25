@@ -2,7 +2,13 @@ package com.ludumengine.core;
 
 public class BasicShader extends Shader {
 	
-	public BasicShader() {
+	private static final BasicShader instance = new BasicShader();
+	
+	public static BasicShader getInstance() {
+		return instance;
+	}
+	
+	private BasicShader() {
 		super();
 		addVertexShader(ResourceLoader.loadShader("basicVertex.glsl"));
 		addFragmentShader(ResourceLoader.loadShader("basicFragment.glsl"));
